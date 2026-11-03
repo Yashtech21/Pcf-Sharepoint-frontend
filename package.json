@@ -1,0 +1,46 @@
+{
+  "name": "pcf-project",
+  "version": "1.0.0",
+  "description": "Project containing your PowerApps Component Framework (PCF) control.",
+  "scripts": {
+    "build": "pcf-scripts build",
+    "clean": "pcf-scripts clean",
+    "lint": "pcf-scripts lint",
+    "lint:fix": "pcf-scripts lint fix",
+    "rebuild": "pcf-scripts rebuild",
+    "start": "pcf-scripts build && npx --yes --package=pcf-start@1.51.1 --package=uuid@11.1.0 -- pcf-start --codePath out/controls/SPFileExplorer",
+    "refreshTypes": "pcf-scripts refreshTypes",
+    "build:prod": "pcf-scripts build --buildMode production",
+    "pack:solution": "pcf-scripts build --buildMode production && node scripts/pack-solution.mjs"
+  },
+  "dependencies": {
+    "@fluentui/react": "8.121.1",
+    "@fluentui/react-experiments": "^8.14.95",
+    "@fluentui/react-file-type-icons": "^8.9.3",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "devDependencies": {
+    "@microsoft/eslint-plugin-power-apps": "^0.2.11",
+    "@types/node": "^18.16.19",
+    "@types/node-sass": "^4.11.3",
+    "@types/powerapps-component-framework": "^1.3.5",
+    "@types/react": "^16.14.43",
+    "@types/react-dom": "^16.9.25",
+    "@typescript-eslint/eslint-plugin": "^8.72.0",
+    "@typescript-eslint/parser": "^8.72.0",
+    "ajv": "^8.20.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "pcf-scripts": "^1.51.1",
+    "typescript": "^4.9.5"
+  },
+  "overrides": {
+    "applicationinsights": {
+      "@opentelemetry/core": "^2.8.0",
+      "@opentelemetry/sdk-trace-base": "^2.8.0"
+    }
+  }
+}
