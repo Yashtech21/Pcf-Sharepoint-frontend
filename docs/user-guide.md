@@ -4,7 +4,9 @@ The explorer shows the SharePoint documents of a record: folders on the left, fi
 
 ## Move between folders
 
-- Click a folder in the tree on the left, or open a folder in the file list.
+- Click **Folders** in the command bar to open the folder tree on the left; click it again to close it. The tree is
+  closed by default, and the browser remembers whether you left it open.
+- Click a folder in the tree, or open a folder in the file list.
 - Use **Filter folder by name** above the tree to find a folder.
 - Use the path above the files to go back to a parent folder.
 

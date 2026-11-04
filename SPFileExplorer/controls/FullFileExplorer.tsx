@@ -103,6 +103,8 @@ interface IFullFileExplorerState {
   narrow: boolean;
   compactCommands: boolean;
   foldersPanelOpen: boolean;
+  /** Wide layout: the folder tree is docked on the left when expanded (collapsed by default). */
+  foldersDocked: boolean;
   locationUrls?: ILocationUrls | null;
   message?: IMessage;
 }
@@ -110,6 +112,7 @@ interface IFullFileExplorerState {
 const VIEW_TYPE_STORAGE_KEY = "SPFileExplorer.viewType";
 const TILE_SIZE_STORAGE_KEY = "SPFileExplorer.tileSize";
 const PREVIEW_STORAGE_KEY = "SPFileExplorer.preview";
+const FOLDERS_STORAGE_KEY = "SPFileExplorer.foldersPane";
 // Width of the control below which the phone/tablet layout is used.
 const NARROW_WIDTH = 640;
 // Width of the files panel below which the commands are shown without text.
@@ -235,6 +238,7 @@ const FullFileExplorer = (props: IFullFileExplorerProps) => {
     narrow: false,
     compactCommands: false,
     foldersPanelOpen: false,
+    foldersDocked: readSetting(FOLDERS_STORAGE_KEY) === "open",
   } as unknown as IFullFileExplorerState);
 
   // Counts nested dragenter/dragleave events of the files panel.
@@ -1106,20 +1110,26 @@ const FullFileExplorer = (props: IFullFileExplorerProps) => {
 
   const getCommandBarItems = (): ICommandBarItemProps[] => {
     const items: ICommandBarItemProps[] = [];
-    if (controlState.narrow && controlState.rootFolder && !props.hideFoldersPane) {
+    if (controlState.rootFolder && !props.hideFoldersPane) {
+      // Folder tree: an overlay on narrow layouts, a side panel that expands and collapses on wide ones.
+      const open = controlState.narrow ? controlState.foldersPanelOpen : controlState.foldersDocked;
       items.push({
         key: "folders",
         name: strings.Folders,
-        iconOnly: true,
-        iconProps: { iconName: "FabricFolder" },
-        ariaLabel: strings.Folders,
+        iconOnly: controlState.narrow || iconOnlyCommands,
+        iconProps: { iconName: open ? "ClosePane" : "OpenPane" },
+        title: open ? strings.HideFolders : strings.ShowFolders,
+        ariaLabel: open ? strings.HideFolders : strings.ShowFolders,
         toggle: true,
-        checked: controlState.foldersPanelOpen,
+        checked: open,
         onClick: () =>
-          setControlState((prevState) => ({
-            ...prevState,
-            foldersPanelOpen: !prevState.foldersPanelOpen,
-          })),
+          setControlState((prevState) => {
+            if (prevState.narrow) {
+              return { ...prevState, foldersPanelOpen: !prevState.foldersPanelOpen };
+            }
+            writeSetting(FOLDERS_STORAGE_KEY, prevState.foldersDocked ? "closed" : "open");
+            return { ...prevState, foldersDocked: !prevState.foldersDocked };
+          }),
       });
     }
     if (props.uploadFiles && controlState.rootFolder) {
@@ -1237,7 +1247,7 @@ const FullFileExplorer = (props: IFullFileExplorerProps) => {
   const renderFolderExplorer = () =>
     controlState.rootFolder &&
     !props.hideFoldersPane &&
-    (!controlState.narrow || controlState.foldersPanelOpen) && (
+    (controlState.narrow ? controlState.foldersPanelOpen : controlState.foldersDocked) && (
       <FolderExplorer
         rootItem={controlState.rootFolder}
         hideSearchBox={props.hideFoldersSearchBox}
@@ -1266,6 +1276,14 @@ const FullFileExplorer = (props: IFullFileExplorerProps) => {
             : controlState.rootFolder
             ? strings.FolderEmpty
             : strings.NoDocumentLocation}
+          {canUpload && !controlState.searchText.trim() && (
+            // Empty folder: a larger drop area, so it's obvious files can be added here.
+            <div className="dropHint large">
+              <span className="dropHintIcon" aria-hidden="true">⇪</span>
+              <span>{strings.DropHintEmpty} </span>
+              <Link onClick={() => uploadInputRef.current?.click()}>{strings.ChooseFiles}</Link>
+            </div>
+          )}
         </div>
       );
     }
@@ -1392,6 +1410,21 @@ const FullFileExplorer = (props: IFullFileExplorerProps) => {
                       )}
                     </div>
                   )
+                )}
+                {canUpload && displayedItems.length > 0 && (
+                  <div className="dropHint" role="note">
+                    <span className="dropHintIcon" aria-hidden="true">⇪</span>
+                    <span>
+                      {formatString(
+                        strings.DropHint,
+                        (controlState.rootFolder &&
+                          findFolder(controlState.rootFolder, controlState.selectedFolderPath)?.name) ||
+                          controlState.rootFolder?.name ||
+                          ""
+                      )}{" "}
+                    </span>
+                    <Link onClick={() => uploadInputRef.current?.click()}>{strings.ChooseFiles}</Link>
+                  </div>
                 )}
                 {renderContent()}
                 {controlState.contextualMenuProps && (

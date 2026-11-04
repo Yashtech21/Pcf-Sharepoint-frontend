@@ -2,7 +2,7 @@
 <ImportExportXml version="9.1.0.643" SolutionPackageVersion="9.1" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <!-- Unique Name of Cds Solution-->
-    <UniqueName>ytech_SharePointFileExplorerViewer</UniqueName>
+    <UniqueName>iws_SharePointFileExplorerViewer</UniqueName>
     <LocalizedNames>
       <!-- Localized Solution Name in language code -->
       <LocalizedName description="SharePoint File Explorer and Viewer" languagecode="1033" />
@@ -13,19 +13,19 @@
     <Managed>1</Managed>
     <Publisher>
       <!-- Unique Publisher Name of Cds Solution -->
-      <UniqueName>yashtech21</UniqueName>
+      <UniqueName>iws</UniqueName>
       <LocalizedNames>
         <!-- Localized Cds Publisher Name in language code-->
-        <LocalizedName description="Yashtech21" languagecode="1033" />
+        <LocalizedName description="iws" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
         <!-- Description of Cds Publisher in language code -->
-        <Description description="Yashtech21" languagecode="1033" />
+        <Description description="iws" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
       <!-- Customization Prefix for the Cds Publisher-->
-      <CustomizationPrefix>ytech</CustomizationPrefix>
+      <CustomizationPrefix>iws</CustomizationPrefix>
       <!-- Derived Option Value Prefix for the Customization Prefix of Cds Publisher -->
       <CustomizationOptionValuePrefix>74101</CustomizationOptionValuePrefix>
       <Addresses>

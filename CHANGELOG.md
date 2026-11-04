@@ -16,7 +16,9 @@
 ### Changed
 
 - **Enable drag and drop upload** is on by default.
-- New publisher `ytech` and solution `ytech_SharePointFileExplorerViewer`, so this fork doesn't replace the original.
+- New publisher `iws` and solution `iws_SharePointFileExplorerViewer`, so this fork doesn't replace the original.
+- The folder tree is a collapsible side panel: the **Folders** button opens and closes it on every layout. It's closed by default and the browser remembers the choice.
+- A dashed "Drag and drop files here…" hint is shown wherever upload is available (a larger drop area in empty folders), with a link to choose files.
 - `npm run pack:solution` builds the solution zip without .NET (`scripts/pack-solution.mjs`); CI still builds it with dotnet.
 
 ## 0.0.5 (2026-10-29)

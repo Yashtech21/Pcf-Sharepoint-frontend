@@ -13,7 +13,9 @@ A control for model-driven apps that shows SharePoint documents the way Windows 
 >   Word/Excel/PowerPoint/Visio (Office for the web), **video** (MP4, WebM, MOV), **audio** (MP3, WAV, M4A, …) and text files.
 > - **PDF in the preview pane:** all pages instead of a preview image.
 > - **Drag and drop upload on by default**, plus an **Upload** button in the command bar.
-> - Its own publisher (`ytech`), so it can be installed next to the original.
+> - Its own publisher (`iws`), so it can be installed next to the original.
+> - **Collapsible folder tree:** the **Folders** button opens and closes it (closed by default; the browser remembers it).
+> - **Drag and drop hint** wherever upload is available, with a larger drop area in empty folders.
 
 ![Built-in viewer: an image zoomed to 114% with the zoom, fit, rotate and navigation toolbar](Media/viewer-image.png)
 
